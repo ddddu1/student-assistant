@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propelix Quiz</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/robot_3279301-removebg-preview.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap" rel="stylesheet">
+    
+    <style>
+
+        body { 
+            font-family: 'Poppins', sans-serif;             background-color: #111827;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        /* Modules Section */
+        .modules-container {
+            width: 25%;
+            max-width: 300px;
+            padding: 30px;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+            margin-right: 150px;
+            overflow-y: auto;
+        }
+
+        .module {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #444;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .subject-list { 
+            display: none; 
+            margin-left: 20px; 
+        }
+
+        .subject {
+            margin: 10px 0;
+            cursor: pointer;
+            color: #ddd;
+        }
+
+        button { 
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        .quiz-container {
+            width: 40%;
+            height: 80%;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+        .chat-header {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .options {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .options li {
+            padding: 10px;
+            background-color: #444;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .options li:hover {
+            background-color: #555;
+        }
+        .selected {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .end-btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .end-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Menu Bar */
+        .icons-container {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 10%;
+            right: 10px;
+            z-index: 100;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .icon:hover {
+            background-color: #007BFF;
+        }
+
+        /* Button Styles */
+        .icon svg {
+            width: 30px;
+            height: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Modules Section -->
+    <div class="modules-container">
+        <h2>Modules and Subjects</h2>
+        <!-- Sample module list -->
+        <div class="module" onclick="toggleSubjects('Module1')">
+            Module 1: HMI
+        </div>
+        <ul id="Module1" class="subject-list">
+            <li class="subject" onclick="startQuiz('Web Development Quiz')">
+                Chpater 03 Quiz
+            </li>
+            <li class="subject" onclick="startQuiz('Web Development Quiz')">
+                Chpater 02 Quiz
+            </li>
+            <li class="subject" onclick="startQuiz('Web Development Quiz')">
+                Chpater 03 Quiz
+            </li>
+        </ul>
+        <div class="module" onclick="toggleSubjects('Module2')">
+            Module 2: Machine Learning
+        </div>
+        <ul id="Module2" class="subject-list">
+            <li class="subject" onclick="startQuiz('Web Development Quiz')">
+                Chpater 01 Quiz
+            </li>
+            <li class="subject" onclick="startQuiz('Web Development Quiz')">
+                Chpater 02 Quiz
+            </li>
+            <li class="subject" onclick="startQuiz('Web Development Quiz')">
+                Chpater 03 Quiz
+            </li>
+        </ul>
+        <div class="module" onclick="toggleSubjects('Module2')">
+            Module 2: Data Structures
+        </div>
+        <ul id="Module3" class="subject-list">
+            <li class="subject" >
+                Coming soon
+            </li>
+        </ul>
+    </div>
+
+    <div class="quiz-container">
+        <div class="chat-header">
+            <h2>Test yourself with Propelix</h2>
+        </div>
+        <div class="question" id="question"></div>
+        <ul class="options" id="options"></ul>
+        <div class="result" id="result"></div>
+        
+    </div>
+
+    <!-- Icons Section -->
+    <div class="icons-container">
+        <div class="icon">
+            <a href="/history">
+                <img src="/static/images/history.png" alt="History Icon" style="width: 50%; align-items: center; margin-left: 10px;">
+            </a>
+        </div>
+        <div class="icon">
+            <a href="/">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 18v3.766l1.515-.909L11.277 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h1zM4 8h12v8h-5.277L7 18.234V16H4V8z"></path>
+                    <path d="M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2z"></path>
+                </svg>
+            </a>
+        </div>
+        <div class="icon">
+            <a href="/quiz">
+                <img src="/static/images/ask.png" alt="Quiz Icon" style="width: 50%; align-items: center; margin-left: 10px;">
+            </a>
+        </div>
+        <div class="icon">
+            <a href="/account">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <script>
+        // Function to toggle the display of subjects
+        function toggleSubjects(moduleId) {
+            const subjectList = document.getElementById(moduleId);
+            subjectList.style.display = subjectList.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Function to start the quiz for a selected course
+        function startQuiz(courseName) {
+            // Example redirection to the quiz page for the selected course
+            // Adjust the URL based on your actual route for each quiz
+            window.location.href = `/quiz/${courseName.replace(/\s+/g, '-').toLowerCase()}.html`; 
+        }
+
+        // Example of quiz question data
+        const questions = [
+            {
+                question: "What is a common limitation of polynomial classifiers mentioned in the course?",
+                options: ["Underfitting", "Overfitting", "Slow processing","High memory usage"],
+                correctAnswer: "Overfitting"
+            },
+            {
+                question: "In logistic regression, what is the function used when building a classifier for problems with only one right answer?",
+                options: ["Linear function", "Sigmoid function"," SoftMax function","Polynomial function"],
+                correctAnswer: " SoftMax function"
+            },
+            {
+                question: "What is the output range of the sigmoid function according to the course?",
+                options: [" -1 to 1", " 0 to 1","-∞ to +∞","0 to ∞"],
+                correctAnswer: "0 to 1"
+            }
+
+        ];
+
+        let currentQuestionIndex = 0;
+        let selectedAnswer = null;
+        let score = 0;
+
+        function loadQuestion() {
+            const questionElement = document.getElementById("question");
+            const optionsElement = document.getElementById("options");
+            questionElement.textContent = questions[currentQuestionIndex].question;
+
+            optionsElement.innerHTML = "";
+            questions[currentQuestionIndex].options.forEach(option => {
+                const optionElement = document.createElement("li");
+                optionElement.textContent = option;
+                optionElement.onclick = function() {
+                    selectOption(optionElement, option);
+                };
+                optionsElement.appendChild(optionElement);
+            });
+        }
+
+        function selectOption(optionElement, option) {
+            const allOptions = document.querySelectorAll(".options li");
+            allOptions.forEach(opt => opt.classList.remove("selected"));
+
+            optionElement.classList.add("selected");
+            selectedAnswer = option;
+            checkAnswer();
+        }
+
+        function checkAnswer() {
+            const resultElement = document.getElementById("result");
+
+            if (selectedAnswer === questions[currentQuestionIndex].correctAnswer) {
+                score++;
+            }
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                showEnd();
+            }
+        }
+
+        function showEnd() {
+            document.getElementById("result").textContent = `Quiz Finished! Your score is: ${score} out of ${questions.length}.`;
+        }
+
+        function goToMainPage() {
+            window.location.href = 'index.html'; // Update path if necessary
+        }
+
+        window.onload = loadQuestion;
+    </script>
+
+</body>
+</html>

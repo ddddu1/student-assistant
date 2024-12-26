@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/images/robot_3279301-removebg-preview.png">
+
+    <title>Propelix - Your interactive study companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2 { 
+            margin: 10px 0; 
+            color: white;
+        }
+        
+        @keyframes tracking-in-expand {
+            0% {
+            letter-spacing: -0.5em;
+            opacity: 0;
+            }
+            40% {
+            opacity: 0.6;
+            }
+            100% {
+            opacity: 1;
+            }
+        }
+
+        .tracking-in-expand {
+            animation: tracking-in-expand 1s ease-out;
+        }
+
+        /* Animation Page */
+        #animation-page {
+            text-align: center;
+            padding-top: 100px;
+        }
+        body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #111827;
+    }
+
+    .group {
+      position: relative;
+    }
+
+    .button {
+      position: relative;
+      display: inline-block;
+      padding: 2px;
+      font-weight: 600;
+      line-height: 1.5rem;
+      color: #ffffff;
+      background-color: #1f2937;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+    }
+
+    .button:active {
+      transform: scale(0.95);
+    }
+
+    .gradient {
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      background: linear-gradient(to right, #14b8a6, #3b82f6, #a855f7);
+      padding: 2px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .group:hover .gradient {
+      opacity: 1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      background-color: #111827;
+      border-radius: 1rem;
+    }
+
+    .text {
+      transition: transform 0.5s ease;
+    }
+
+    .group:hover .text {
+      transform: translateX(0.25rem);
+    }
+
+    .icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-left: 0.5rem;
+      fill: currentColor;
+      transition: transform 0.5s ease;
+    }
+
+    .group:hover .icon {
+      transform: translateX(0.25rem);
+    }
+
+
+        #start-chat-btn {
+            background-color: #007BFF;
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        #start-chat-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Chat Wrapper */
+        #chat-wrapper {
+            display: flex;
+            flex: 1;
+            flex-direction: row;
+            height: 100vh;
+            padding: 20px;
+            justify-content: space-between;
+            
+        }
+
+        /* Modules Section */
+        .modules-container {
+            width: 30%;
+            max-width: 300px;
+            padding: 30px;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+            margin-right: 150px;
+            overflow-y: auto;
+        }
+
+        .module {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #444;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .subject-list { 
+            display: none; 
+            margin-left: 20px; 
+        }
+
+        .subject {
+            margin: 10px 0;
+            cursor: pointer;
+            color: #ddd;
+        }
+
+        button { 
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Chat Section */
+        .chat-container {
+            
+            flex: 1;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: center;
+        }
+
+        .chat-header {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        #chat-box {
+            flex: 1;
+            border: 1px solid #444;
+            padding: 10px;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            background-color: #1c1c1c;
+        }
+
+        .user-message { 
+            text-align: right; 
+            color: #4CAF50;
+        }
+
+        .bot-message { 
+            text-align: left; 
+            color: #4A90E2;
+        }
+
+        .messageBox {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        /* Input Box */
+        input[type="text"] {
+            background-color: #333;
+            color: white;
+            border: 1px solid #444;
+            padding: 5px;
+            width: 100%;
+            border-radius: 3px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        #sendButton {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 3px;
+            margin-left: 10px;
+        }
+
+        #sendButton:hover {
+            background-color: #2980b9;
+        }
+
+        /* Menu Bar */
+        .icons-container {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 10%;
+            right: 10px;
+            z-index: 100;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .icon:hover {
+            background-color: #007BFF;
+        }
+
+        /* Button Styles */
+        .icon svg {
+            width: 30px;
+            height: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Animation Page -->
+    <div id="animation-page">
+        <h1 class="tracking-in-expand">Welcome to Propelix</h1>
+        <p class="tracking-in-expand">Your interactive study companion</p>
+        <div class="group" style="margin-top: 20px;">
+            <button class="button" onclick="startChat()">
+              <span class="gradient"></span>
+              <span class="content">
+                <span class="text">Let's get started</span>
+                <svg class="icon" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="width: 30px; height: 30px; margin-top: 10px;">
+                  <path clip-rule="evenodd" fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+        
+    </div>
+
+    <!-- Chat Page -->
+    <div id="chat-wrapper" style="display: none;">
+        <!-- Modules Section -->
+        <div class="modules-container">
+            <h2>Modules and Subjects</h2>
+            {% for module, subjects in modules.items() %}
+            <div class="module" onclick="toggleSubjects('{{ module }}')">
+                {{ module }}
+            </div>
+            <ul id="{{ module }}" class="subject-list">
+                {% for subject in subjects %}
+                <li class="subject">
+                    {{ subject }}
+                    <button onclick="readFile('{{ module }}', '{{ subject }}')">Read</button>
+                    <button onclick="summarizeFile('{{ module }}', '{{ subject }}')">Summarize</button>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </div>
+
+        <!-- Chat Section -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>Student Assistant Chatbot</h2>
+            </div>
+            <div id="chat-box" class="chat-box" ></div>
+            
+            
+            <form id="chat-form">
+                <div class="messageBox">
+                    <input style="background-color: #1c1c1c;" type="text" id="user-input" placeholder="Ask me something..." required >
+                    <button id="sendButton" type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Icons Section -->
+        <div class="icons-container">
+            <div class="icon">
+                <a href="/history">
+                    <img src="/static/images/history.png" alt="History Icon" style="width: 50%; align-items: center; margin-left: 10px;">
+                </a>
+            </div>
+            <div class="icon">
+                <a href="/">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 18v3.766l1.515-.909L11.277 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h1zM4 8h12v8h-5.277L7 18.234V16H4V8z"></path>
+                        <path d="M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2z"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="icon">
+                <a href="/quiz">
+                    <img src="/static/images/ask.png" alt="Quiz Icon" style="width: 50%; align-items: center; margin-left: 10px;">
+                </a>
+            </div>
+            <div class="icon">
+                <a href="/account">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            
+            
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle the display of subjects
+        function toggleSubjects(moduleId) {
+            const subjectList = document.getElementById(moduleId);
+            subjectList.style.display = subjectList.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Function to read the content of a file
+        function readFile(module, subject) {
+            fetch("/read", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ module, subject }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Display output in chat box
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'bot-message';
+                    botMessage.textContent = `Bot: ${data.response}`;
+                    document.getElementById("chat-box").appendChild(botMessage);
+                    document.getElementById("chat-box").scrollTop = document.getElementById("chat-box").scrollHeight; // Scroll to bottom
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+        // Function to summarize the content of a file
+        function summarizeFile(module, subject) {
+            fetch("/summarize", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ module, subject }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Display summary output in chat box
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'bot-message';
+                    botMessage.textContent = `Bot: ${data.response}`;
+                    document.getElementById("chat-box").appendChild(botMessage);
+                    document.getElementById("chat-box").scrollTop = document.getElementById("chat-box").scrollHeight; // Scroll to bottom
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+        // Function to switch from animation page to chat page
+        function startChat() {
+            document.getElementById('animation-page').style.display = 'none'; // Hide animation
+            document.getElementById('chat-wrapper').style.display = 'flex'; // Show chat page
+        }
+
+        // Chat functionality
+        // Replace your existing chat functionality code with this:
+        const form = document.getElementById('chat-form');
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+
+        // Handle form submission (for the send button)
+        form.addEventListener('submit', handleMessage);
+
+        // Handle Enter key press
+        userInput.addEventListener('keypress', async (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent default form submission
+                handleMessage(e);
+            }
+        });
+
+        // Function to handle sending messages
+        async function handleMessage(e) {
+            e.preventDefault();
+            const message = userInput.value.trim();
+            
+            // Don't send if the message is empty
+            if (!message) return;
+
+            // Add user's message to chat box
+            const userMessage = document.createElement('div');
+            userMessage.className = 'user-message';
+            userMessage.textContent = `You: ${message}`;
+            chatBox.appendChild(userMessage);
+
+            // Clear input field
+            userInput.value = '';
+
+            // Send user input to backend
+            try {
+                const response = await fetch('/get', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: message })
+                });
+                const data = await response.json();
+
+                // Add bot's response to chat box
+                const botMessage = document.createElement('div');
+                botMessage.className = 'bot-message';
+                botMessage.textContent = `Bot: ${data.response}`;
+                chatBox.appendChild(botMessage);
+
+                // Scroll to bottom
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+    </script>
+</body>
+</html>

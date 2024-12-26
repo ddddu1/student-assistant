@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Student Account</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/robot_3279301-removebg-preview.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap" rel="stylesheet">
+
+
+    <style>
+        body{
+            background-color: #111827;
+            font-family: 'Poppins', sans-serif; 
+        }
+        .account-wrapper {
+            display: flex;
+            background-color: #2a2a2a;
+            flex-direction: column;
+            align-items: center;
+            margin: 50px auto;
+            height: auto;
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .account-details {
+            width: 100%;
+        }
+
+        .account-details label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .account-details input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .update-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .update-button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 15px;
+            color: white;
+            background-color: #555;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .back-button:hover {
+            background-color: #333;
+        }
+
+        /* Menu Bar */
+        .icons-container {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 10%;
+            right: 10px;
+            z-index: 100;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .icon:hover {
+            background-color: #007BFF;
+        }
+
+        /* Button Styles */
+        .icon svg {
+            width: 30px;
+            height: 30px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="account-wrapper">
+        <img src="/static/images/user (1).png" alt="Profile Picture" class="profile-picture">
+        <h2>Student Account</h2>
+
+        <form class="account-details" action="/update_account" method="POST">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" value="Zeroual Douaa" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" value="douaa@example.com" required>
+
+            <label for="email">Speciality:</label>
+            <input type="email" id="speciality" name="speciality" value="IRIIA" required>
+
+            <label for="student-id">Student ID:</label>
+            <input type="text" id="student-id" name="student_id" value="123456" disabled>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" value="******" required>
+
+            <button type="submit" class="update-button">Update Account</button>
+        </form>
+
+        
+    </div>
+
+    <!-- Icons Section -->
+    <div class="icons-container">
+        <div class="icon">
+            <a href="/history">
+                <img src="/static/images/history.png" alt="History Icon" style="width: 50%; align-items: center; margin-left: 10px;">
+            </a>
+        </div>
+        <div class="icon">
+            <a href="/">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 18v3.766l1.515-.909L11.277 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h1zM4 8h12v8h-5.277L7 18.234V16H4V8z"></path>
+                    <path d="M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2z"></path>
+                </svg>
+            </a>
+        </div>
+        <div class="icon">
+            <a href="/quiz">
+                <img src="/static/images/ask.png" alt="Quiz Icon" style="width: 50%; align-items: center; margin-left: 10px;">
+            </a>
+        </div>
+        <div class="icon">
+            <a href="/account">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+                </svg>
+            </a>
+        </div>
+        
+    
+</body>
+</html>

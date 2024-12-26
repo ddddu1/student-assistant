@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat History</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/robot_3279301-removebg-preview.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap" rel="stylesheet">
+    
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111827;
+            color: white; /* Light text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* History Container */
+        .history-container {
+            width: 90%;
+            height: 90%;
+            max-width: 800px;
+            background-color: #2a2a2a; /* Dark container */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .history-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .history-header h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ddd;
+        }
+
+        /* Chat History Box */
+        .chat-history {
+            width: 100%;
+            min-height: 450px; /* Minimum height to make it large even when empty */
+            max-height: 400px; /* Maximum height for scrolling */
+            overflow-y: auto;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            padding: 10px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-message {
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #444; /* Darker bubble */
+            color: white;
+            text-align: left;
+        }
+
+        .chat-message:nth-child(odd) {
+            background-color: #555; /* Alternate message style */
+        }
+
+        /* Button */
+        a button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db; /* Blue button */
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        a button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        /* Menu Bar */
+        .icons-container {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 10%;
+            right: 10px;
+            z-index: 100;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .icon:hover {
+            background-color: #007BFF;
+        }
+
+        /* Button Styles */
+        .icon svg {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="history-container">
+        <!-- Header -->
+        <div class="history-header">
+            <h2>Chat History</h2>
+        </div>
+
+        <!-- Chat History -->
+        <div id="chat-history" class="chat-history">
+            {% if chat_history %}
+                {% for message in chat_history %}
+                    <div class="chat-message">{{ message }}</div>
+                {% endfor %}
+            {% else %}
+                <p style="color: #aaa; text-align: center;">No chat history available.</p>
+            {% endif %}
+        </div>
+
+        <!-- Back Button -->
+        <a href="/"><button type="submit" class="update-button">Back to chat</button></a>
+
+        <!-- Icons Section -->
+    <div class="icons-container">
+        <div class="icon">
+            <a href="/history">
+                <img src="/static/images/history.png" alt="History Icon" style="width: 50%; align-items: center; margin-left: 10px;">
+            </a>
+        </div>
+        <div class="icon">
+            <a href="/">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 18v3.766l1.515-.909L11.277 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h1zM4 8h12v8h-5.277L7 18.234V16H4V8z"></path>
+                    <path d="M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2z"></path>
+                </svg>
+            </a>
+        </div>
+        <div class="icon">
+            <a href="/quiz">
+                <img src="/static/images/ask.png" alt="Quiz Icon" style="width: 50%; align-items: center; margin-left: 10px;">
+            </a>
+        </div>
+        <div class="icon">
+            <a href="/account">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+                </svg>
+            </a>
+        </div>
+    
+    </div>
+</body>
+</html>

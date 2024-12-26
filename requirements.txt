@@ -1,0 +1,6 @@
+flask>=2.0.0
+google-cloud-dialogflow>=2.0.0
+transformers>=4.0.0
+PyPDF2>=3.0.0
+fuzzywuzzy>=0.18.0
+python-Levenshtein>=0.12.0
