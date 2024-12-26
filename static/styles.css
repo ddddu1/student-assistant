@@ -1,0 +1,166 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #121212; /* Dark background */
+}
+
+/* Wrapper for centering the chat box */
+.chat-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Chat container with borders and padding */
+.chat-container {
+    background-color: #1f1f1f; /* Dark background for chat */
+    width: 800px;
+    height: 600px;
+    border: 2px solid #444; /* Darker border */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat Header */
+.chat-header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white; /* Light text */
+}
+
+/* Message Box */
+.messageBox {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Adjust this value as needed */
+    margin: 10px auto; /* Centers the box horizontally and adds vertical spacing */
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border-radius: 20px;
+    border: 1px solid #555; /* Darker border */
+    background-color: #2a2a2a; /* Dark background for message box */
+}
+
+/* Send Button */
+#sendButton {
+    width: fit-content;
+    height: 100%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#sendButton svg {
+    height: 18px;
+    transition: all 0.3s;
+}
+
+#sendButton svg path {
+    transition: all 0.3s;
+}
+
+#sendButton:hover svg path {
+    fill: #ddd; /* Light color on hover */
+    stroke: white;
+}
+
+/* Chat box where messages are displayed */
+.chat-box {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #444; /* Dark border */
+    border-radius: 5px;
+    background-color: #333; /* Dark background */
+    max-height: 350px;
+    color: white; /* Light text */
+}
+
+/* User and bot message styles */
+.user-message, .bot-message {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.user-message {
+    background-color: #444; /* Dark background for user message */
+    align-self: flex-end;
+    text-align: right;
+}
+
+.bot-message {
+    background-color: #555; /* Dark background for bot message */
+    align-self: flex-start;
+    text-align: left;
+}
+
+/* Chat input form */
+#chat-form {
+    display: flex;
+    align-items: center;
+}
+
+#chat-form input {
+    flex-grow: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #444; /* Dark border */
+    border-radius: 5px;
+    background-color: #555; /* Dark input background */
+    color: white; /* Light text */
+}
+
+#chat-form input:focus {
+    outline: none;
+    border-color: #3498db; /* Blue focus border */
+}
+
+#chat-form button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+#chat-form button img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Button styles */
+button {
+    padding: 10px;
+    background-color: #007BFF; /* Blue button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
