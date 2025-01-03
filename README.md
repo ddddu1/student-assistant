@@ -30,7 +30,7 @@ python3 --version
 pip --version
 ```
 
-## Installing Flask
+## Installing Requirements
 
 In your terminal run the requirements.txt file using this pip
 
@@ -45,7 +45,7 @@ cd into your directory
 ```
 
 ```
-python3 app.py
+python app.py
 ```
 
 
